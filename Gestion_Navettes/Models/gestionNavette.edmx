@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="gestionNavetteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="abonne">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_complet" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" />
+          <Property Name="telephone" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="mdp" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="abonne_abonnement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_abonne" Type="int" />
+          <Property Name="id_abonnement" Type="int" />
+        </EntityType>
+        <EntityType Name="abonnement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_debut" Type="datetime" Nullable="false" />
+          <Property Name="date_fin" Type="datetime" Nullable="false" />
+          <Property Name="heure_depart" Type="time" Precision="7" Nullable="false" />
+          <Property Name="heure_arrivee" Type="time" Precision="7" Nullable="false" />
+          <Property Name="nbr_abonne_voulu" Type="int" Nullable="false" />
+          <Property Name="prix_abonnement" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="id_autocar" Type="int" />
+          <Property Name="id_ville_depart" Type="int" />
+          <Property Name="id_ville_arrivee" Type="int" />
+        </EntityType>
+        <EntityType Name="administrateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="prenom" Type="varchar" MaxLength="30" />
+          <Property Name="login" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="mdp" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="autocar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clim" Type="tinyint" />
+          <Property Name="capacite" Type="int" />
+          <Property Name="id_societe" Type="int" />
+        </EntityType>
+        <EntityType Name="demande">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date_debut" Type="datetime" Nullable="false" />
+          <Property Name="date_fin" Type="datetime" Nullable="false" />
+          <Property Name="heure_depart" Type="time" Precision="7" Nullable="false" />
+          <Property Name="heure_arrivee" Type="time" Precision="7" Nullable="false" />
+          <Property Name="id_abonne" Type="int" />
+          <Property Name="id_ville_depart" Type="int" />
+          <Property Name="id_ville_arrivee" Type="int" />
+          <Property Name="nbr_clients_inters" Type="int" Nullable="false" />
+          <Property Name="status_demande" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="societe">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="mdp" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresse" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ville">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_ville" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <Association Name="FK__abonne_ab__id_ab__59FA5E80">
+          <End Role="abonne" Type="Self.abonne" Multiplicity="0..1" />
+          <End Role="abonne_abonnement" Type="Self.abonne_abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonne">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonne_abonnement">
+              <PropertyRef Name="id_abonne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonne_ab__id_ab__5AEE82B9">
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="0..1" />
+          <End Role="abonne_abonnement" Type="Self.abonne_abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonnement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonne_abonnement">
+              <PropertyRef Name="id_abonnement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_au__534D60F1">
+          <End Role="autocar" Type="Self.autocar" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autocar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_autocar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_vi__5441852A">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_ville_depart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_vi__5535A963">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_ville_arrivee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__autocar__id_soci__4E88ABD4">
+          <End Role="societe" Type="Self.societe" Multiplicity="0..1" />
+          <End Role="autocar" Type="Self.autocar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="societe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="autocar">
+              <PropertyRef Name="id_societe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande__id_abon__72C60C4A">
+          <End Role="abonne" Type="Self.abonne" Multiplicity="0..1" />
+          <End Role="demande" Type="Self.demande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonne">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="demande">
+              <PropertyRef Name="id_abonne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande__id_vill__73BA3083">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="demande" Type="Self.demande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="demande">
+              <PropertyRef Name="id_ville_depart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande__id_vill__74AE54BC">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="demande" Type="Self.demande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="demande">
+              <PropertyRef Name="id_ville_arrivee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gestionNavetteModelStoreContainer">
+          <EntitySet Name="abonne" EntityType="Self.abonne" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="abonne_abonnement" EntityType="Self.abonne_abonnement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="abonnement" EntityType="Self.abonnement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="administrateur" EntityType="Self.administrateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="autocar" EntityType="Self.autocar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="demande" EntityType="Self.demande" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="societe" EntityType="Self.societe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ville" EntityType="Self.ville" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__abonne_ab__id_ab__59FA5E80" Association="Self.FK__abonne_ab__id_ab__59FA5E80">
+            <End Role="abonne" EntitySet="abonne" />
+            <End Role="abonne_abonnement" EntitySet="abonne_abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonne_ab__id_ab__5AEE82B9" Association="Self.FK__abonne_ab__id_ab__5AEE82B9">
+            <End Role="abonnement" EntitySet="abonnement" />
+            <End Role="abonne_abonnement" EntitySet="abonne_abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_au__534D60F1" Association="Self.FK__abonnemen__id_au__534D60F1">
+            <End Role="autocar" EntitySet="autocar" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_vi__5441852A" Association="Self.FK__abonnemen__id_vi__5441852A">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_vi__5535A963" Association="Self.FK__abonnemen__id_vi__5535A963">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__autocar__id_soci__4E88ABD4" Association="Self.FK__autocar__id_soci__4E88ABD4">
+            <End Role="societe" EntitySet="societe" />
+            <End Role="autocar" EntitySet="autocar" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande__id_abon__72C60C4A" Association="Self.FK__demande__id_abon__72C60C4A">
+            <End Role="abonne" EntitySet="abonne" />
+            <End Role="demande" EntitySet="demande" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande__id_vill__73BA3083" Association="Self.FK__demande__id_vill__73BA3083">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="demande" EntitySet="demande" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande__id_vill__74AE54BC" Association="Self.FK__demande__id_vill__74AE54BC">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="demande" EntitySet="demande" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="gestionNavetteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="abonne">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_complet" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mdp" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="abonne_abonnement" Relationship="Self.FK__abonne_ab__id_ab__59FA5E80" FromRole="abonne" ToRole="abonne_abonnement" />
+          <NavigationProperty Name="demande" Relationship="gestionNavetteModel.FK__demande__id_abon__72C60C4A" FromRole="abonne" ToRole="demande" />
+        </EntityType>
+        <EntityType Name="abonne_abonnement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_abonne" Type="Int32" />
+          <Property Name="id_abonnement" Type="Int32" />
+          <NavigationProperty Name="abonne" Relationship="Self.FK__abonne_ab__id_ab__59FA5E80" FromRole="abonne_abonnement" ToRole="abonne" />
+          <NavigationProperty Name="abonnement" Relationship="Self.FK__abonne_ab__id_ab__5AEE82B9" FromRole="abonne_abonnement" ToRole="abonnement" />
+        </EntityType>
+        <EntityType Name="abonnement">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_debut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_fin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="heure_depart" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="heure_arrivee" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="nbr_abonne_voulu" Type="Int32" Nullable="false" />
+          <Property Name="prix_abonnement" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="id_autocar" Type="Int32" />
+          <Property Name="id_ville_depart" Type="Int32" />
+          <Property Name="id_ville_arrivee" Type="Int32" />
+          <NavigationProperty Name="abonne_abonnement" Relationship="Self.FK__abonne_ab__id_ab__5AEE82B9" FromRole="abonnement" ToRole="abonne_abonnement" />
+          <NavigationProperty Name="autocar" Relationship="Self.FK__abonnemen__id_au__534D60F1" FromRole="abonnement" ToRole="autocar" />
+          <NavigationProperty Name="ville" Relationship="Self.FK__abonnemen__id_vi__5441852A" FromRole="abonnement" ToRole="ville" />
+          <NavigationProperty Name="ville1" Relationship="Self.FK__abonnemen__id_vi__5535A963" FromRole="abonnement" ToRole="ville" />
+        </EntityType>
+        <EntityType Name="administrateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mdp" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="autocar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clim" Type="Byte" />
+          <Property Name="capacite" Type="Int32" />
+          <Property Name="id_societe" Type="Int32" />
+          <NavigationProperty Name="abonnement" Relationship="Self.FK__abonnemen__id_au__534D60F1" FromRole="autocar" ToRole="abonnement" />
+          <NavigationProperty Name="societe" Relationship="Self.FK__autocar__id_soci__4E88ABD4" FromRole="autocar" ToRole="societe" />
+        </EntityType>
+        <EntityType Name="societe">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="login" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="mdp" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="autocar" Relationship="Self.FK__autocar__id_soci__4E88ABD4" FromRole="societe" ToRole="autocar" />
+        </EntityType>
+        <EntityType Name="ville">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_ville" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="abonnement" Relationship="Self.FK__abonnemen__id_vi__5441852A" FromRole="ville" ToRole="abonnement" />
+          <NavigationProperty Name="abonnement1" Relationship="Self.FK__abonnemen__id_vi__5535A963" FromRole="ville" ToRole="abonnement" />
+          <NavigationProperty Name="demande" Relationship="gestionNavetteModel.FK__demande__id_vill__73BA3083" FromRole="ville" ToRole="demande" />
+          <NavigationProperty Name="demande1" Relationship="gestionNavetteModel.FK__demande__id_vill__74AE54BC" FromRole="ville" ToRole="demande" />
+          </EntityType>
+        <Association Name="FK__abonne_ab__id_ab__59FA5E80">
+          <End Role="abonne" Type="Self.abonne" Multiplicity="0..1" />
+          <End Role="abonne_abonnement" Type="Self.abonne_abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonne">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonne_abonnement">
+              <PropertyRef Name="id_abonne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonne_ab__id_ab__5AEE82B9">
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="0..1" />
+          <End Role="abonne_abonnement" Type="Self.abonne_abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonnement">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonne_abonnement">
+              <PropertyRef Name="id_abonnement" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_au__534D60F1">
+          <End Role="autocar" Type="Self.autocar" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="autocar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_autocar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_vi__5441852A">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_ville_depart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__abonnemen__id_vi__5535A963">
+          <End Role="ville" Type="Self.ville" Multiplicity="0..1" />
+          <End Role="abonnement" Type="Self.abonnement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="abonnement">
+              <PropertyRef Name="id_ville_arrivee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__autocar__id_soci__4E88ABD4">
+          <End Role="societe" Type="Self.societe" Multiplicity="0..1" />
+          <End Role="autocar" Type="Self.autocar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="societe">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="autocar">
+              <PropertyRef Name="id_societe" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="gestionNavetteEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="abonne" EntityType="Self.abonne" />
+          <EntitySet Name="abonne_abonnement" EntityType="Self.abonne_abonnement" />
+          <EntitySet Name="abonnement" EntityType="Self.abonnement" />
+          <EntitySet Name="administrateur" EntityType="Self.administrateur" />
+          <EntitySet Name="autocar" EntityType="Self.autocar" />
+          <EntitySet Name="societe" EntityType="Self.societe" />
+          <EntitySet Name="ville" EntityType="Self.ville" />
+          <AssociationSet Name="FK__abonne_ab__id_ab__59FA5E80" Association="Self.FK__abonne_ab__id_ab__59FA5E80">
+            <End Role="abonne" EntitySet="abonne" />
+            <End Role="abonne_abonnement" EntitySet="abonne_abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonne_ab__id_ab__5AEE82B9" Association="Self.FK__abonne_ab__id_ab__5AEE82B9">
+            <End Role="abonnement" EntitySet="abonnement" />
+            <End Role="abonne_abonnement" EntitySet="abonne_abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_au__534D60F1" Association="Self.FK__abonnemen__id_au__534D60F1">
+            <End Role="autocar" EntitySet="autocar" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_vi__5441852A" Association="Self.FK__abonnemen__id_vi__5441852A">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__abonnemen__id_vi__5535A963" Association="Self.FK__abonnemen__id_vi__5535A963">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="abonnement" EntitySet="abonnement" />
+          </AssociationSet>
+          <AssociationSet Name="FK__autocar__id_soci__4E88ABD4" Association="Self.FK__autocar__id_soci__4E88ABD4">
+            <End Role="societe" EntitySet="societe" />
+            <End Role="autocar" EntitySet="autocar" />
+          </AssociationSet>
+          <EntitySet Name="demande" EntityType="gestionNavetteModel.demande" />
+          <AssociationSet Name="FK__demande__id_abon__72C60C4A" Association="gestionNavetteModel.FK__demande__id_abon__72C60C4A">
+            <End Role="abonne" EntitySet="abonne" />
+            <End Role="demande" EntitySet="demande" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande__id_vill__73BA3083" Association="gestionNavetteModel.FK__demande__id_vill__73BA3083">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="demande" EntitySet="demande" />
+          </AssociationSet>
+          <AssociationSet Name="FK__demande__id_vill__74AE54BC" Association="gestionNavetteModel.FK__demande__id_vill__74AE54BC">
+            <End Role="ville" EntitySet="ville" />
+            <End Role="demande" EntitySet="demande" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="demande">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date_debut" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="date_fin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="heure_depart" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="heure_arrivee" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="id_abonne" Type="Int32" />
+          <Property Name="id_ville_depart" Type="Int32" />
+          <Property Name="id_ville_arrivee" Type="Int32" />
+          <Property Name="nbr_clients_inters" Type="Int32" Nullable="false" />
+          <Property Name="status_demande" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="abonne" Relationship="gestionNavetteModel.FK__demande__id_abon__72C60C4A" FromRole="demande" ToRole="abonne" />
+          <NavigationProperty Name="ville" Relationship="gestionNavetteModel.FK__demande__id_vill__73BA3083" FromRole="demande" ToRole="ville" />
+          <NavigationProperty Name="ville1" Relationship="gestionNavetteModel.FK__demande__id_vill__74AE54BC" FromRole="demande" ToRole="ville" />
+        </EntityType>
+        <Association Name="FK__demande__id_abon__72C60C4A">
+          <End Type="gestionNavetteModel.abonne" Role="abonne" Multiplicity="0..1" />
+          <End Type="gestionNavetteModel.demande" Role="demande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="abonne">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="demande">
+              <PropertyRef Name="id_abonne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande__id_vill__73BA3083">
+          <End Type="gestionNavetteModel.ville" Role="ville" Multiplicity="0..1" />
+          <End Type="gestionNavetteModel.demande" Role="demande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="demande">
+              <PropertyRef Name="id_ville_depart" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__demande__id_vill__74AE54BC">
+          <End Type="gestionNavetteModel.ville" Role="ville" Multiplicity="0..1" />
+          <End Type="gestionNavetteModel.demande" Role="demande" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ville">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="demande">
+              <PropertyRef Name="id_ville_arrivee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="gestionNavetteModelStoreContainer" CdmEntityContainer="gestionNavetteEntities1">
+          <EntitySetMapping Name="abonne">
+            <EntityTypeMapping TypeName="gestionNavetteModel.abonne">
+              <MappingFragment StoreEntitySet="abonne">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom_complet" ColumnName="nom_complet" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="abonne_abonnement">
+            <EntityTypeMapping TypeName="gestionNavetteModel.abonne_abonnement">
+              <MappingFragment StoreEntitySet="abonne_abonnement">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_abonne" ColumnName="id_abonne" />
+                <ScalarProperty Name="id_abonnement" ColumnName="id_abonnement" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="abonnement">
+            <EntityTypeMapping TypeName="gestionNavetteModel.abonnement">
+              <MappingFragment StoreEntitySet="abonnement">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="heure_depart" ColumnName="heure_depart" />
+                <ScalarProperty Name="heure_arrivee" ColumnName="heure_arrivee" />
+                <ScalarProperty Name="nbr_abonne_voulu" ColumnName="nbr_abonne_voulu" />
+                <ScalarProperty Name="prix_abonnement" ColumnName="prix_abonnement" />
+                <ScalarProperty Name="id_autocar" ColumnName="id_autocar" />
+                <ScalarProperty Name="id_ville_depart" ColumnName="id_ville_depart" />
+                <ScalarProperty Name="id_ville_arrivee" ColumnName="id_ville_arrivee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="administrateur">
+            <EntityTypeMapping TypeName="gestionNavetteModel.administrateur">
+              <MappingFragment StoreEntitySet="administrateur">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="prenom" ColumnName="prenom" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="autocar">
+            <EntityTypeMapping TypeName="gestionNavetteModel.autocar">
+              <MappingFragment StoreEntitySet="autocar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="clim" ColumnName="clim" />
+                <ScalarProperty Name="capacite" ColumnName="capacite" />
+                <ScalarProperty Name="id_societe" ColumnName="id_societe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="societe">
+            <EntityTypeMapping TypeName="gestionNavetteModel.societe">
+              <MappingFragment StoreEntitySet="societe">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+                <ScalarProperty Name="adresse" ColumnName="adresse" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ville">
+            <EntityTypeMapping TypeName="gestionNavetteModel.ville">
+              <MappingFragment StoreEntitySet="ville">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom_ville" ColumnName="nom_ville" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="demande">
+            <EntityTypeMapping TypeName="gestionNavetteModel.demande">
+              <MappingFragment StoreEntitySet="demande">
+                <ScalarProperty Name="status_demande" ColumnName="status_demande" />
+                <ScalarProperty Name="nbr_clients_inters" ColumnName="nbr_clients_inters" />
+                <ScalarProperty Name="id_ville_arrivee" ColumnName="id_ville_arrivee" />
+                <ScalarProperty Name="id_ville_depart" ColumnName="id_ville_depart" />
+                <ScalarProperty Name="id_abonne" ColumnName="id_abonne" />
+                <ScalarProperty Name="heure_arrivee" ColumnName="heure_arrivee" />
+                <ScalarProperty Name="heure_depart" ColumnName="heure_depart" />
+                <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+                <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

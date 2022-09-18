@@ -1,0 +1,58 @@
+﻿@model Gestion_Navettes.Models.autocar
+
+@{
+    ViewBag.Title = "details";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-white rounded">
+
+                    <h2 class="text-center">Détails </h2>
+
+                    <div>
+                        <h4>autocar</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.clim)
+                            </dt>
+
+                            <dd>
+                                @(Model.clim == null ? "Non dispo" : " Dispo")
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.capacite)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.capacite)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.societe.nom)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.societe.nom)
+                            </dd>
+
+                        </dl>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Retour", "Index")
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+

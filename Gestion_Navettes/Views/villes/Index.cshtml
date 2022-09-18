@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.ville>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+
+                    <h2 class="text-center">Villes</h2>
+                    @if (@TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["msg"]
+                        </div>
+                    }
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { Class = "btn btn-success" })
+                    </p>
+                    <table class="table table-light">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.nom_ville)
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nom_ville)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

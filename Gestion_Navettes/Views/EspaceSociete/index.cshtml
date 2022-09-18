@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.abonnement>
+
+@using Gestion_Navettes.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+
+                    <h2 class="text-center mb-md-5">Liste des abonnements de @( ((societe)Session["societe"]).nom )</h2>
+                    <br />
+                    @if (@TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["msg"]
+                        </div>
+                    }
+                    <p>
+                        @Html.ActionLink("Ajouter autocar", "Create", "autocars", null, new { Class = "btn btn-success" })
+                    </p>
+
+                    <table class="table table-light table-responsive text-center">
+                        <tr>
+                            <th>
+                                Date <br />début
+                            </th>
+                            <th>
+                                Date <br />fin
+                            </th>
+                            <th>
+                                Heure <br />départ
+                            </th>
+                            <th>
+                                Heure <br />d'arriver
+                            </th>
+                            <th>
+                                Nombre <br />voulu
+                            </th>
+                            <th>
+                                Ville <br />depart
+                            </th>
+                            <th>
+                                Ville <br />d'arriver
+                            </th>
+                            <th>
+                                Prix <br />d'abonnement
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.date_debut.ToShortDateString()
+                                </td>
+                                <td>
+                                    @item.date_fin.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.heure_depart)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.heure_arrivee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nbr_abonne_voulu)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ville.nom_ville)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ville1.nom_ville)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.prix_abonnement) Dh
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Voir details", "details", new { id = item.id_autocar, Class = "btn btn-primary" })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+
+
+
+
+
+
+
+
+

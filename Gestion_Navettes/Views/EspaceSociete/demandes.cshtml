@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.demande>
+
+@{
+    ViewBag.Title = "demandes";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="text-center mb-md-5">Les demandes d'abonnement des clients</h2>
+                    @if (@TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["msg"]
+                        </div>
+                    }
+                    <table class="table table-light table-responsive text-center">
+                        <tr>
+                            <th>
+                                id <br />demande
+                            </th>
+                            <th>
+                                nom <br />Client
+                            </th>
+                            <th>
+                                Date <br />debut
+                            </th>
+                            <th>
+                                Date <br />fin
+                            </th>
+                            <th>
+                                Heure <br />depart
+                            </th>
+                            <th>
+                                Heure <br />d'arriver
+                            </th>
+                            <th>
+                                ville <br />depart
+                            </th>
+                            <th>
+                                ville <br />d'arriver
+                            </th>
+                            <th>nbr <br />clients interessés</th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.abonne.nom_complet
+                                </td>
+                                <td>
+                                    @item.date_debut.ToShortDateString()
+                                </td>
+                                <td>
+                                    @item.date_fin.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.heure_depart)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.heure_arrivee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ville.nom_ville)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ville1.nom_ville)
+                                </td>
+                                <td>@item.nbr_clients_inters</td>
+                                <td>@Html.ActionLink("Accepter", "gereDemande", new { id = item.id })</td>
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

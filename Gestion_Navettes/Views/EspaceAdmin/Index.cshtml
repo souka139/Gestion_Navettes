@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.societe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="text-center mb-md-5">Liste des societés</h2>
+                    @if (@TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["msg"]
+                        </div>
+                    }
+                    <table class="table table-responsive table-light">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.nom)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.adresse)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nom)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.adresse)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

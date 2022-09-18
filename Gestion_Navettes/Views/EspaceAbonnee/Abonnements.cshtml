@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.abonnement>
+
+@{
+    ViewBag.Title = "Abonnements";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="text-center mb-md-5">Mes Abonnements</h2>
+                    @if (@TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["msg"]
+                        </div>
+                    }
+                    <table class="table table-light table-responsive text-center">
+                        <tr>
+                            <th>
+                                id <br>Offre
+                            </th>
+                            <th>
+                                Date <br>debut
+                            </th>
+                            <th>
+                                Date <br>fin
+                            </th>
+                            <th>
+                                Heure <br>depart
+                            </th>
+                            <th>
+                                Heure <br>d'arriver
+                            </th>
+                            <th>
+                                Nbr <br>abonnements voulu
+                            </th>
+                            <th>
+                                Prix <br>abonnement
+                            </th>
+                            <th>
+                                Ville <br>départ
+                            </th>
+                            <th>
+                                Ville <br>d'arriver
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.date_debut.ToShortDateString()
+                                </td>
+                                <td>
+                                    @item.date_fin.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.heure_depart)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.heure_arrivee)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nbr_abonne_voulu)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.prix_abonnement) Dh
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ville.nom_ville)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ville1.nom_ville)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

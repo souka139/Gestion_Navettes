@@ -1,0 +1,100 @@
+﻿@model Gestion_Navettes.Models.demande
+
+@{
+    ViewBag.Title = "DeleteDemande";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner bg-white rounded">
+                    <h2 class="text-center mb-md-5">Delete demande</h2>
+                    <h3>Are you sure you want to delete this?</h3>
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.abonne.nom_complet)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.abonne.nom_complet)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.date_debut)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.date_debut)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.date_fin)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.date_fin)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.heure_depart)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.heure_depart)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.heure_arrivee)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.heure_arrivee)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.nbr_clients_inters)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.nbr_clients_inters)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ville.nom_ville)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ville.nom_ville)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ville1.nom_ville)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ville1.nom_ville)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="btn btn-danger my-3" /> |
+                                @Html.ActionLink("Back to List", "demandes")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

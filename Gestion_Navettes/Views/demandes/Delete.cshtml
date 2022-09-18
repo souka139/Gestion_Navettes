@@ -1,0 +1,83 @@
+﻿@model Gestion_Navettes.Models.demande
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="text-center mb-md-5">Delete demande</h2>
+
+                    <h3>Are you sure you want to delete this?</h3>
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Ville depart
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ville.nom_ville)
+                            </dd>
+
+                            <dt>
+                               Ville d'arriver
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ville1.nom_ville)
+                            </dd>
+
+                            <dt>
+                                Date debut
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.date_debut)
+                            </dd>
+
+                            <dt>
+                                Date fin
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.date_fin)
+                            </dd>
+
+                            <dt>
+                                Heure depart
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.heure_depart)
+                            </dd>
+
+                            <dt>
+                                Heure d'arriver
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.heure_arrivee)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

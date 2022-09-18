@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Gestion_Navettes.Models.demande>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .badge {
+        padding: .2rem 1rem;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: .7rem;
+    }
+
+        .badge.success {
+            background: #DEF7EC;
+            color: #027581;
+        }
+</style>
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 mx-auto">
+                <div class="cta-inner bg-faded rounded">
+                    <h2 class="text-center mb-md-5">Mes demandes d'abonnement</h2>
+                    @if (@TempData["msg"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["msg"]
+                        </div>
+                    }
+                    <p>
+                        @Html.ActionLink("Create New", "Create", null, new { Class = "btn btn-success" })
+                    </p>
+                    <table class="table table-light table-responsive text-center">
+                        <tr>
+                            <th>id</th>
+                            <th>
+                                Ville <br>depart
+                            </th>
+                            <th>
+                                Ville <br>d'arriver
+                            </th>
+                            <th>
+                                Date <br>debut
+                            </th>
+                            <th>
+                                Date <br>fin
+                            </th>
+                            <th>
+                                Heure <br>depart
+                            </th>
+                            <th>
+                                Heure <br>d'arriver
+                            </th>
+                            <th>status</th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                    <tr>
+                        <td> @item.id</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ville.nom_ville)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ville1.nom_ville)
+                        </td>
+                        <td>
+                            @item.date_debut.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.date_fin.ToShortDateString()
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.heure_depart)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.heure_arrivee)
+                        </td>
+
+                        @if (item.status_demande == "accepted")
+                        {
+                            <td><span class="badge success">@item.status_demande</span></td>
+                        }
+                        else
+                        {
+                            @item.status_demande
+                        }
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        </td>
+                    </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e97a4bda53464d08bafa938bac4aeff2" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="gestionNavetteModel.abonne" Width="1.5" PointX="4.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestionNavetteModel.abonne_abonnement" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestionNavetteModel.abonnement" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestionNavetteModel.administrateur" Width="1.5" PointX="2.375" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestionNavetteModel.autocar" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestionNavetteModel.societe" Width="1.5" PointX="0.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="gestionNavetteModel.ville" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="gestionNavetteModel.FK__abonne_ab__id_ab__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="gestionNavetteModel.FK__abonne_ab__id_ab__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="gestionNavetteModel.FK__abonnemen__id_au__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="gestionNavetteModel.FK__abonnemen__id_vi__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="gestionNavetteModel.FK__abonnemen__id_vi__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="gestionNavetteModel.FK__autocar__id_soci__4E88ABD4" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="gestionNavetteModel.demande" Width="1.5" PointX="6.875" PointY="4.125" />
+        <AssociationConnector Association="gestionNavetteModel.FK__demande__id_abon__72C60C4A" />
+        <AssociationConnector Association="gestionNavetteModel.FK__demande__id_vill__73BA3083" />
+        <AssociationConnector Association="gestionNavetteModel.FK__demande__id_vill__74AE54BC" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
